@@ -1,6 +1,6 @@
 -- Initial sql script for building the database
 
--- @Arthor: Germaine Hounakey; David Mirakin; Daniela Contreras
+-- @Author: Germaine Hounakey; David Mirakin; Daniela Contreras
 
 -- NOT RUN YET
 
@@ -44,17 +44,3 @@ GRANT SELECT ON CodeBuilding TO PUBLIC;
 GRANT SELECT ON Room TO PUBLIC;
 GRANT SELECT ON ImageLink TO PUBLIC;
 GRANT SELECT ON Player TO PUBLIC;
-
-
--- add records
-INSERT INTO CodeBuilding VALUES ('SB', 'Science Building');
-INSERT INTO CodeBuilding VALUES ('NH', 'North Hall');
-INSERT INTO CodeBuilding VALUES ('CFAC', 'Covenent Fine Arts Center');
-INSERT INTO CodeBuilding VALUES ('HM', 'Heminga Hall');
-INSERT INTO CodeBuilding VALUES ('DC', 'DeVos Communication Center ');
-INSERT INTO CodeBuilding VALUES ('SPF', 'Spoelhof Center');
-INSERT INTO CodeBuilding VALUES ("CM", 'Commons Anex');
-INSERT INTO CodeBuilding VALUES ("SOB", 'Business School');
-INSERT INTO CodeBuilding VALUES ("PC", 'Prince Conference');
-INSERT INTO CodeBuilding VALUES ("SM", 'Seminary');
-INSERT INTO CodeBuilding VALUES ("DH", 'DeVries Hall');
