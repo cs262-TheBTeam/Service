@@ -1,0 +1,19 @@
+{
+    "name": "service",
+    "version": "1.0.0",
+    "description": "Calvin Location Guesser Webservice",
+    "main": "calvinLocationGuesserService.js",
+    "author": "dmirak",
+    "license": "ISC",
+    "engines": {
+        "node": "16.x"
+    },
+    "scripts": {
+        "start": "node calvinLocationGuesserService.js",
+        "start-direct": "node calvinLocationGuesserDirect.js"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "pg-promise": "^10.12.1"
+    }
+}
