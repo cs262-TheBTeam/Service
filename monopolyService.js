@@ -1,5 +1,21 @@
 /**
- *  Based on the Monopoly dataservice by kvlinden
+ * This module implements a REST-inspired webservice for the Monopoly DB.
+ * The database is hosted on ElephantSQL.
+ *
+ * Currently, the service supports the player table only.
+ *
+ * To guard against SQL injection attacks, this code uses pg-promise's built-in
+ * variable escaping. This prevents a client from issuing this URL:
+ *     https://cs262-monopoly-service.herokuapp.com/players/1%3BDELETE%20FROM%20PlayerGame%3BDELETE%20FROM%20Player
+ * which would delete records in the PlayerGame and then the Player tables.
+ * In particular, we don't use JS template strings because it doesn't filter
+ * client-supplied values properly.
+ *
+ * TODO: Consider using Prepared Statements.
+ *      https://vitaly-t.github.io/pg-promise/PreparedStatement.html
+ *
+ * @author: kvlinden
+ * @date: Summer, 2020
  */
 
 // Set up the database connection.
@@ -14,18 +30,18 @@ const db = pgp({
 
 // Configure the server and its routes.
 
-import express, { Router, json } from 'express';
+const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-const router = Router();
-router.use(json());
+const router = express.Router();
+router.use(express.json());
 
 router.get("/", readHelloMessage);
-// router.get("/players", readPlayers);
-// router.get("/players/:id", readPlayer);
-// router.put("/players/:id", updatePlayer);
-// router.post('/players', createPlayer);
-// router.delete('/players/:id', deletePlayer);
+router.get("/players", readPlayers);
+router.get("/players/:id", readPlayer);
+router.put("/players/:id", updatePlayer);
+router.post('/players', createPlayer);
+router.delete('/players/:id', deletePlayer);
 
 app.use(router);
 app.use(errorHandler);
@@ -49,10 +65,10 @@ function returnDataOr404(res, data) {
 }
 
 function readHelloMessage(req, res) {
-    res.send('Hello, Calvin Location Guesser!');
+    res.send('Hello, CS 262 Monopoly service!');
 }
 
-function readPlayers(req, res, next) {
+ function readPlayers(req, res, next) {
     db.many("SELECT * FROM Player")
         .then(data => {
             res.send(data);
