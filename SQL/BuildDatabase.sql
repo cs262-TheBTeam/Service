@@ -13,26 +13,26 @@ DROP TABLE IF EXISTS CodeBuilding;
 --Links building names to building codes
 CREATE TABLE CodeBuilding (
     code varchar(10) PRIMARY KEY,
-    name varchar(50),
+    name varchar(100)
 );
 
 --Contains room number and building code for each room/question
 CREATE TABLE Room (
-    IDRoom integer PRIMARY KEY,
+    IDRoom SERIAL PRIMARY KEY,
     buildingCode varchar(10) REFERENCES CodeBuilding(code),
-    roomNumber varchar(50),
+    roomNumber varchar(50)
 );
 
 --Record for each picture, links to Room. Will either contian filepath to image or contain the image itself
 CREATE TABLE ImageLink (
-    IDImageLink integer PRIMARY KEY,
+    IDImageLink SERIAL PRIMARY KEY,
     roomID integer REFERENCES Room(IDRoom),
-    image varbinary(max)
+    imagePath varchar(50)
 );
 
 --Player from the scoreboard
 CREATE TABLE Player (
-    IDPlayer integer PRIMARY KEY,
+    IDPlayer SERIAL PRIMARY KEY,
     name varchar(30),
     score integer
 );
