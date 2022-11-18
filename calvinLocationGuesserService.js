@@ -59,7 +59,7 @@ function readPlayers(req, res, next) {
         })
 }
 
-function readPlayers(req, res, next) {
+function getQuestions(req, res, next) {
     db.many("SELECT * FROM Room r ORDER BY RANDOM() LIMIT 5")
         .then(data => {
             res.send(data);
