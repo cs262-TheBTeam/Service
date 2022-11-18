@@ -18,6 +18,7 @@ router.use(express.json());
 
 router.get("/", readHelloMessage);
 router.get("/players", readPlayers);
+router.post('/players', createPlayer);
 router.get("/quiz", getQuestions);
 router.get("/images/:id", getImages);
 // router.get("/players/:id", readPlayer);
@@ -74,6 +75,16 @@ function getImages(req, res, next) {
     db.many('SELECT * FROM ImageLink WHERE roomID=${id}', req.params)
         .then(data => {
             returnDataOr404(res, data);
+        })
+        .catch(err => {
+            next(err);
+        });
+}
+
+function createPlayer(req, res, next) {
+    db.one('INSERT INTO Player(name, score) VALUES (${name}, ${score}) RETURNING IDPlayer', req.body)
+        .then(data => {
+            res.send(data);
         })
         .catch(err => {
             next(err);
