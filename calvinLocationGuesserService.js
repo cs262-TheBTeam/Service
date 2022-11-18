@@ -18,6 +18,7 @@ router.use(express.json());
 
 router.get("/", readHelloMessage);
 router.get("/players", readPlayers);
+router.get("/quiz", getQuestions);
 // router.get("/players/:id", readPlayer);
 // router.put("/players/:id", updatePlayer);
 // router.post('/players', createPlayer);
@@ -50,6 +51,16 @@ function readHelloMessage(req, res) {
 
 function readPlayers(req, res, next) {
     db.many("SELECT name, score FROM Player ORDER BY score DESC")
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            next(err);
+        })
+}
+
+function readPlayers(req, res, next) {
+    db.many("SELECT * FROM Room r ORDER BY RANDOM() LIMIT 5")
         .then(data => {
             res.send(data);
         })
